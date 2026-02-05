@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-custom sticky-top p-2">
+<nav class="navbar navbar-expand-lg navbar-custom sticky-top p-2 mb-4">
     <div class="container-fluid">
         <a class="navbar-brand" href="">Todolist</a>
 

@@ -86,8 +86,10 @@ class ToDoListController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id, Request $request)
     {
-        //
+        ToDoList::findOrFail($id)->delete();
+
+        return redirect('/todolist')->with('pesan', 'Deleted successfully');
     }
 }
