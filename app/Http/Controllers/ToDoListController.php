@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\ToDoList;
+use App\Models\Category;
+use App\Models\Label;
 use Illuminate\Http\Request;
 
 class ToDoListController extends Controller
@@ -26,7 +28,11 @@ class ToDoListController extends Controller
      */
     public function create()
     {
-        //
+        $category = Category::get();
+        // $label = Label::where();
+        return view('todolist.add', [
+            'data_category' => $category
+        ]);
     }
 
     /**
@@ -34,7 +40,23 @@ class ToDoListController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|min:4',
+            'id_category' => 'required',
+            'dateline' => 'required|after:now',
+            'description' => 'required'
+        ],[
+            'title.min' => 'Atleast 4 characters!',
+        ]);
+
+        ToDoList::create([
+            'title' => $request->title,
+            'id_category' => $request->id_category,
+            'dateline' => $request->dateline,
+            'description' => $request->description
+        ]);
+
+        return redirect('/todolist')->with('message', 'Success');
     }
 
     /**

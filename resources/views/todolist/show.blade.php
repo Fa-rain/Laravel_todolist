@@ -3,7 +3,7 @@
 @section('content')
     <div class="container mb-4 ">
         <div class="d-flex flex-row">
-            <a href="/add" class="btn btn-success">Add [+]</a>
+            <a href="todolist/create" class="btn btn-success">Add [+]</a>
             <form action="">
                 <select name="status" id="status" class="form-select mx-2">
                     <option value="">Pending</option>

@@ -20,3 +20,5 @@ Route::post('/register', [AuthManager::class, 'registerPost'])
 
 // To Do List
 Route::get('/todolist', [ToDoListController::class, 'index']); // show data
+Route::get('/todolist/create', [ToDoListController::class, 'create']); // show add form
+Route::post('/todolist', [ToDoListController::class, 'store']);
