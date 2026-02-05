@@ -1,4 +1,4 @@
-@extends('auth.layouts.default')
+@extends('layouts.auth')
 @section('content')
 
     <div class="container mt-5 bg-white p-5 rounded-4" style="width:400px">

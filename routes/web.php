@@ -2,17 +2,21 @@
 
 use App\Http\Controllers\AuthManager;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ToDoListController;
 
 Route::get('/', function ()
 {
-    return view('welcome');
+    return view('todolist');
 })->name('home');
 
-Route::get('/login', [\App\Http\Controllers\AuthManager::class, 'login'])
+Route::get('/login', [AuthManager::class, 'login'])
     ->name('login');
-Route::post('/login', [\App\Http\Controllers\AuthManager::class, 'loginPost'])
+Route::post('/login', [AuthManager::class, 'loginPost'])
     ->name('login.post');
-Route::get('/register', [\App\Http\Controllers\AuthManager::class, 'register'])
+Route::get('/register', [AuthManager::class, 'register'])
     ->name('register');
-Route::post('/register', [\App\Http\Controllers\AuthManager::class, 'registerPost'])
+Route::post('/register', [AuthManager::class, 'registerPost'])
     ->name('register.post');
+
+// To Do List
+Route::get('/todolist', [ToDoListController::class, 'index']); // show data
