@@ -72,7 +72,13 @@ class ToDoListController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data_todolist = ToDoList::findOrFail($id);
+        $category = Category::get();
+
+        return view('todolist.edit', [
+            'data_todolist' => $data_todolist,
+            'data_category' => $category
+        ]);
     }
 
     /**
@@ -80,7 +86,23 @@ class ToDoListController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'title' => 'required|min:4',
+            'id_category' => 'required',
+            'dateline' => 'required|after:now',
+            'description' => 'required'
+        ],[
+            'title.min' => 'Atleast 4 characters!',
+        ]);
+
+        ToDoList::where('id_todolist', $id)->update([
+            'title' => $request->title,
+            'id_category' => $request->id_category,
+            'dateline' => $request->dateline,
+            'description' => $request->description
+        ]);
+
+        return redirect('/todolist')->with('message', 'Success');
     }
 
     /**

@@ -27,8 +27,9 @@
                         <div class="card-text"> Status : {{$todo['status']}}</div>
                     </div>
                     <div class="d-flex">
-                       <button type="button" class="btn btn-danger" data-bs-toggle='modal'
+                       <button type="button" class="btn btn-danger me-2" data-bs-toggle='modal'
                         data-bs-target='#delete{{$todo->id_todolist}}'>Delete</button>
+                        <a href="/todolist/{{$todo->id_todolist}}/edit" class="btn btn-primary">Edit</a>
                     </div>
                 </div>
             </div>
