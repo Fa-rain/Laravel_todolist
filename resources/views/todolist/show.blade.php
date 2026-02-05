@@ -21,10 +21,11 @@
             @foreach ($data_todolist as $todo )
             <div class="card col-sm-3 mx-1 my-2" style="width: 270px">
                 <div class="card-body">
-                    <div class="card-title">{{$todo['title']}}</div>
-                    <div class="card-content mb-5">
-                        <small>{{$todo['description']}}</small>
+                    <div class="card-title"><h4>{{$todo['title']}}</h4></div>
+                    <small style="color:rgb(155, 155, 155)">{{$todo['description']}}</small>
+                    <div class="card-content my-4">
                         <div class="card-text"> Status : {{$todo['status']}}</div>
+                        <div class="card-text">Dateline : {{ \Carbon\Carbon::parse($todo->dateline)->translatedFormat('l, d F Y H:i') }}</div>
                     </div>
                     <div class="d-flex">
                        <button type="button" class="btn btn-danger me-2" data-bs-toggle='modal'
