@@ -16,10 +16,11 @@ class ToDoList extends Model
         /**
      * Relasi ToDoList dimiliki oleh satu User
      */
-    // public function user(): BelongsTo
-    // {
-    //     return $this->belongsTo(User::class, 'user_id');
-    // }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_user', 'id_user');
+    }
+
 }
 
 

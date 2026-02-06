@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container mb-4">
-        <div class="d-flex flex-row">
+        <div class="d-flex flex-row mb-4">
             <a href="todolist/create" class="btn btn-success mx-1">Add [+]</a>
             <form action="/todolist" class="ms-2">
                 <select name="category" id="category" class="form-select">
@@ -21,7 +21,7 @@
             </form>
         </div>
         @if (@session('message'))
-            <div class="alert alert-success">{{session('message')}}</div>
+            <div class="flash-message alert alert-success">{{session('message')}}</div>
         @endif
     </div>
 

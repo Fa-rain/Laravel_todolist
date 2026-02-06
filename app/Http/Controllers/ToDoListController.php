@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\ToDoList;
 use App\Models\Category;
 use App\Models\Label;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ToDoListController extends Controller
 {
@@ -18,7 +20,7 @@ class ToDoListController extends Controller
         $search = $request->keyword;
 
         $data_category = Category::get();
-        $data_todolist = ToDoList::all();
+        $data_todolist = Auth::user()->todolists;
         return view('todolist.show', compact('data_category', 'data_todolist'));
     }
 
@@ -48,26 +50,23 @@ class ToDoListController extends Controller
             'title.min' => 'Atleast 4 characters!',
         ]);
 
-        // ToDoList::create([
-        //     'title' => $request->title,
-        //     'id_category' => $request->id_category,
-        //     'dateline' => $request->dateline,
-        //     'description' => $request->description
-        // ]);
+        try {
+            ToDoList::create([
+                'title' => $request->title,
+                'id_category' => $request->id_category,
+                'id_user' => Auth::id(),
+                'dateline' => $request->dateline,
+                'description' => $request->description,
+            ]);
 
-        $todolist = new ToDoList();
-        $todolist->title = $request->title;
-        $todolist->id_category = $request->id_category;
-        $todolist->dateline = $request->dateline;
-        $todolist->description = $request->description;
+            return redirect('/todolist')
+                ->with('message', 'To Do List added Successfully');
 
-        if($todolist->save()){
-            return redirect('/todolist')->with('message', 'To Do List added Successfully');
+        } catch (\Exception $e) {
+
+            return redirect('/todolist/create')
+                ->with('message', 'Failed to add To Do List');
         }
-
-        return redirect('/todolist/create')->with('message', 'Failed to add To Do List');
-
-        // return redirect('/todolist')->with('message', 'Success');
     }
 
     /**
@@ -83,13 +82,13 @@ class ToDoListController extends Controller
      */
     public function edit(string $id)
     {
-        $data_todolist = ToDoList::findOrFail($id);
-        $category = Category::get();
+        $data_todolist = Auth::user()
+            ->todolists()
+            ->where('id_todolist', $id)
+            ->firstOrFail();
+        $data_category = Category::get();
 
-        return view('todolist.edit', [
-            'data_todolist' => $data_todolist,
-            'data_category' => $category
-        ]);
+        return view('todolist.edit',compact('data_todolist','data_category' ));
     }
 
     /**
@@ -106,14 +105,20 @@ class ToDoListController extends Controller
             'title.min' => 'Atleast 4 characters!',
         ]);
 
-        ToDoList::where('id_todolist', $id)->update([
+        $todolist = Auth::user()
+            ->todolists()
+            ->where('id_todolist', $id)
+            ->firstOrFail();
+
+        $todolist->update([
             'title' => $request->title,
             'id_category' => $request->id_category,
             'dateline' => $request->dateline,
-            'description' => $request->description
+            'description' => $request->description,
         ]);
 
-        return redirect('/todolist')->with('message', 'Success');
+        return redirect('/todolist')
+            ->with('message', 'Updated Successfully');
     }
 
     /**
@@ -121,8 +126,12 @@ class ToDoListController extends Controller
      */
     public function destroy(string $id, Request $request)
     {
-        ToDoList::findOrFail($id)->delete();
+        Auth::user()
+        ->todolists()
+        ->where('id_todolist', $id)
+        ->delete();
 
-        return redirect('/todolist')->with('pesan', 'Deleted successfully');
+    return redirect('/todolist')
+        ->with('message', 'Deleted Successfully');
     }
 }

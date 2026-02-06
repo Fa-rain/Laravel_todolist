@@ -22,7 +22,10 @@ class AuthManager extends Controller
             'password'=>'required'
         ]);
 
-        $credentials = $request->only('username', 'password');
+        $credentials = [
+            'username' => $request->username,
+            'password' => $request->password,
+        ];
 
         if(Auth::attempt($credentials))
         {
@@ -47,7 +50,8 @@ class AuthManager extends Controller
         $user = New User();
         $user->username = $request->username;
         $user->email = $request->email;
-        $user->password = $request->password;
+        $user->password = bcrypt($request->password);
+        $user->created_at = now();
 
         // Left side is based from database
         // and right side is based from name of an input
