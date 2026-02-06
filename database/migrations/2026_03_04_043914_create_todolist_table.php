@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id('id_todolist')->autoIncrement();
             $table->string('title');
             $table->unsignedBigInteger('id_category');
+            $table->unsignedBigInteger('id_user');
             $table->text('description')->nullable();
             $table->enum('status', ['pending', 'done'])->default('pending');
             $table->dateTime('dateline');
@@ -22,6 +23,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('id_category')->references('id_category')->on('category')->onDelete('cascade');
+            $table->foreign('id_user')->references('id_user')->on('user')->onDelete('cascade');
         });
 
         Schema::create('label_todolist', function (Blueprint $table) {

@@ -4,10 +4,19 @@
     <div class="container mb-4">
         <div class="d-flex flex-row">
             <a href="todolist/create" class="btn btn-success mx-1">Add [+]</a>
-            <form action="">
-                <select name="status" id="status" class="form-select mx-2">
-                    <option value="">Pending</option>
-                    <option value="">Done</option>
+            <form action="/todolist" class="ms-2">
+                <select name="category" id="category" class="form-select">
+                    <option value="" selected>All Category</option>
+                    @foreach ( $data_category as $category )
+                        <option value="{{$category->id_category}}">{{$category->category_name}}</option>
+                    @endforeach
+                </select>
+            </form>
+            <form action="/todolist" class="mx-2">
+                <select name="status" id="status" class="form-select">
+                    <option value="" selected>All Status</option>
+                    <option value="pending">Pending</option>
+                    <option value="done">Done</option>
                 </select>
             </form>
         </div>

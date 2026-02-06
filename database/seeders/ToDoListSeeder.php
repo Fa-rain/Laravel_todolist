@@ -19,6 +19,7 @@ class ToDoListSeeder extends Seeder
             [
                 'title' => 'Todolist',
                 'id_category'=> 1,
+                'id_user'=> 1,
                 'description' => 'Ini adalah deskripsi',
                 'dateline' => '2026-03-12 08:00:00',
                 'created_at' => now()

@@ -26,7 +26,8 @@ class AuthManager extends Controller
 
         if(Auth::attempt($credentials))
         {
-            return redirect()->intended(route('home'));
+            $request->session()->regenerate();
+            return redirect()->intended(route('todolist'));
         }
         return redirect('login')->with('error', 'Invalid email or password');
     }

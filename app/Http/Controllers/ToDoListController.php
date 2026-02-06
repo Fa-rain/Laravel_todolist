@@ -17,10 +17,9 @@ class ToDoListController extends Controller
 
         $search = $request->keyword;
 
-        $todolist = ToDoList::get();
-        return view('todolist.show', [
-            'data_todolist' => $todolist
-        ]);
+        $data_category = Category::get();
+        $data_todolist = ToDoList::all();
+        return view('todolist.show', compact('data_category', 'data_todolist'));
     }
 
     /**
@@ -49,14 +48,26 @@ class ToDoListController extends Controller
             'title.min' => 'Atleast 4 characters!',
         ]);
 
-        ToDoList::create([
-            'title' => $request->title,
-            'id_category' => $request->id_category,
-            'dateline' => $request->dateline,
-            'description' => $request->description
-        ]);
+        // ToDoList::create([
+        //     'title' => $request->title,
+        //     'id_category' => $request->id_category,
+        //     'dateline' => $request->dateline,
+        //     'description' => $request->description
+        // ]);
 
-        return redirect('/todolist')->with('message', 'Success');
+        $todolist = new ToDoList();
+        $todolist->title = $request->title;
+        $todolist->id_category = $request->id_category;
+        $todolist->dateline = $request->dateline;
+        $todolist->description = $request->description;
+
+        if($todolist->save()){
+            return redirect('/todolist')->with('message', 'To Do List added Successfully');
+        }
+
+        return redirect('/todolist/create')->with('message', 'Failed to add To Do List');
+
+        // return redirect('/todolist')->with('message', 'Success');
     }
 
     /**

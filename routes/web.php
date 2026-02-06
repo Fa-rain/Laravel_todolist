@@ -9,6 +9,7 @@ Route::get('/', function ()
     return view('todolist');
 })->name('home');
 
+// Auth
 Route::get('/login', [AuthManager::class, 'login'])
     ->name('login');
 Route::post('/login', [AuthManager::class, 'loginPost'])
@@ -19,9 +20,19 @@ Route::post('/register', [AuthManager::class, 'registerPost'])
     ->name('register.post');
 
 // To Do List
-Route::get('/todolist', [ToDoListController::class, 'index']); // show data
-Route::get('/todolist/create', [ToDoListController::class, 'create']); // show add form
-Route::post('/todolist', [ToDoListController::class, 'store']);
-Route::delete('/todolist/{id_todolist}', [ToDoListController::class, 'destroy']);
-Route::get('/todolist/{id_todolist}/edit', [ToDoListController::class, 'edit']);
-Route::put('/todolist/{id_todolist}', [ToDoListController::class, 'update']);
+// Route::get('/todolist', [ToDoListController::class, 'index']); // show data
+// Route::get('/todolist/create', [ToDoListController::class, 'create']); // show add form
+// Route::post('/todolist', [ToDoListController::class, 'store']);
+// Route::delete('/todolist/{id_todolist}', [ToDoListController::class, 'destroy']);
+// Route::get('/todolist/{id_todolist}/edit', [ToDoListController::class, 'edit']);
+// Route::put('/todolist/{id_todolist}', [ToDoListController::class, 'update']);
+
+// To Do List
+Route::middleware('auth')->group(function (){
+    Route::get('/todolist', [ToDoListController::class, 'index'])->name('todolist'); // show data
+    Route::get('/todolist/create', [ToDoListController::class, 'create']); // show add form
+    Route::post('/todolist', [ToDoListController::class, 'store']);
+    Route::delete('/todolist/{id_todolist}', [ToDoListController::class, 'destroy']);
+    Route::get('/todolist/{id_todolist}/edit', [ToDoListController::class, 'edit']);
+    Route::put('/todolist/{id_todolist}', [ToDoListController::class, 'update']);
+});

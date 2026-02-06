@@ -31,6 +31,10 @@
                         {{session('error')}}
                     </div>
                 @endif
+
+                @if (@session('message'))
+                    <div class="alert alert-danger">{{session('message')}}</div>
+                @endif
             </div>
             <button type="submit" class="btn btn-dark mb-3" style="width:100%; padding:8px">Submit</button>
             <hr>
