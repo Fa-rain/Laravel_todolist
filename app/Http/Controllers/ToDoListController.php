@@ -152,4 +152,27 @@ class ToDoListController extends Controller
     return redirect('/todolist')
         ->with('message', 'Deleted Successfully');
     }
+
+    public function status(string $id)
+    {
+        $todolist = Auth::user()
+            ->todolists()
+            ->where('id_todolist', $id)
+            ->firstOrFail();
+
+        if($todolist->status == 'pending')
+        {
+            $todolist->update([
+                'status' => 'done'
+            ]);
+        }else
+        {
+            $todolist->update([
+                'status' => 'pending'
+            ]);
+        }
+
+        return redirect('/todolist')
+            ->with('message', 'Updated Successfully');
+    }
 }

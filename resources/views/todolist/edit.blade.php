@@ -38,6 +38,25 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="mb-3">
+                            <label for="status" class="form-label">Status</label>
+                            <select name="status" id="status" class="form-select">
+                                <option value="pending"
+                                    {{ $data_todolist->status == 'pending' ? 'selected' : '' }}>
+                                    Pending
+                                </option>
+                                <option value="done"
+                                    {{ $data_todolist->status == 'done' ? 'selected' : '' }}>
+                                    Done
+                                </option>
+                            </select>
+
+                            @error('id_category')
+                                <div class="form-text text-danger">{{$message}}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="mb-3">
                             <label for="dateline" class="form-label">Dateline</label>
                             <input type="datetime-local" name="dateline" id="dateline" class="form-control"
                             value="{{$data_todolist->dateline}}">

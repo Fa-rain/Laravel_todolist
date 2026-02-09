@@ -35,6 +35,7 @@ Route::middleware('auth')->group(function (){
     Route::delete('/todolist/{id_todolist}', [ToDoListController::class, 'destroy']);
     Route::get('/todolist/{id_todolist}/edit', [ToDoListController::class, 'edit']);
     Route::put('/todolist/{id_todolist}', [ToDoListController::class, 'update']);
+    Route::post('/todolist/{id_todolist}/status', [ToDoListController::class, 'status']);
 });
 
 // Profil

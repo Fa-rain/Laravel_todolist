@@ -4,7 +4,7 @@
     <div class="container mb-4">
         <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
             <div class="mb-2">
-                <a href="/todolist/create" class="btn btn-primary">
+                <a href="/todolist/create" class="btn btn-success">
                     + Add Todo
                 </a>
             </div>
@@ -62,7 +62,7 @@
     <div class="container">
         <div class="row mx-auto">
             @foreach ($data_todolist as $todo )
-            <div class="card col-sm-3 mx-1 my-2" style="width: 270px">
+            <div class="card col-sm-3 me-2 my-2" style="width: 270px">
                 <div class="card-body">
                     <div class="card-title"><h4>{{$todo['title']}}</h4></div>
                     <small style="color:rgb(155, 155, 155)">{{$todo['description']}}</small>
@@ -74,6 +74,18 @@
                        <button type="button" class="btn btn-danger me-2" data-bs-toggle='modal'
                         data-bs-target='#delete{{$todo->id_todolist}}'>Delete</button>
                         <a href="/todolist/{{$todo->id_todolist}}/edit" class="btn btn-primary">Edit</a>
+                        @if ($todo->status == 'pending')
+                            <form action="/todolist/{{$todo->id_todolist}}/status" method="post">
+                                @csrf
+                                <button type="submit" class="btn btn-success ms-2">Done</button>
+                            </form>
+
+                        @else
+                            <form action="/todolist/{{$todo->id_todolist}}/status" method="post">
+                                @csrf
+                                <button type="submit" class="btn btn-secondary ms-2">Pending</button>
+                            </form>
+                        @endif
                     </div>
                 </div>
             </div>
