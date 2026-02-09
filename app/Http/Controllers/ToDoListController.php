@@ -26,7 +26,7 @@ class ToDoListController extends Controller
         }
 
         // Filter Category
-        if ($request->category) {
+        if ($request->id_category) {
             $query->where('id_category', $request->id_category);
         }
 
