@@ -64,4 +64,14 @@ class AuthManager extends Controller
         return redirect(route('register'))
         ->with('error', 'Registration failed');
     }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/login');
+    }
 }

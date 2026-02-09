@@ -14,6 +14,9 @@ Route::get('/register', [AuthManager::class, 'register'])
     ->name('register');
 Route::post('/register', [AuthManager::class, 'registerPost'])
     ->name('register.post');
+Route::post('/logout', [AuthManager::class, 'logout'])
+    ->name('logout')
+    ->middleware('auth');
 
 // To Do List
 // Route::get('/todolist', [ToDoListController::class, 'index']); // show data

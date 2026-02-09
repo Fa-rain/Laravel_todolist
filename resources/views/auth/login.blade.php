@@ -1,7 +1,7 @@
-@extends('layouts.auth')
+@extends('layouts.default')
 @section('content')
 
-    <div class="container mt-5 bg-white p-5 rounded-4" style="width:400px">
+    <div class="container bg-white p-5 rounded-4" style="width:400px">
         <center><p class = "ms-auto h1">Login</p></center>
         <center><small>Please fill the forms </small></center>
         <form method="POST" action="{{route('login.post')}}">

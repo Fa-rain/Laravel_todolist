@@ -7,17 +7,39 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/about">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/login">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('profile.show') }}">Profile</a>
-                </li>
-            </ul>
-        </div>
+    <ul class="navbar-nav ms-auto">
+
+        <li class="nav-item">
+            <a class="nav-link" href="/about">About</a>
+        </li>
+
+        {{-- Not Login --}}
+        @guest
+            <li class="nav-item">
+                <a class="nav-link" href="/login">Login</a>
+            </li>
+        @endguest
+
+        {{-- Has Login --}}
+        @auth
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('profile.show') }}">
+                    Profile
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                    @csrf
+                    <button type="submit" class="btn btn-secondary">
+                        Logout
+                    </button>
+                </form>
+            </li>
+        @endauth
+
+    </ul>
+</div>
+
     </div>
 </nav>
