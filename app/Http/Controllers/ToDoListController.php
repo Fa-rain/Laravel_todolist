@@ -17,11 +17,29 @@ class ToDoListController extends Controller
     public function index(Request $request)
     {
 
-        $search = $request->keyword;
+        $query = Auth::user()->todolists();
 
         $data_category = Category::get();
-        $data_todolist = Auth::user()->todolists;
+
+        if ($request->status) {
+            $query->where('status', $request->status);
+        }
+
+        // Filter Category
+        if ($request->category) {
+            $query->where('id_category', $request->id_category);
+        }
+
+        // Search Title
+        if ($request->search) {
+            $query->where('title', 'like', '%'.$request->search.'%');
+        }
+
+        $data_todolist = $query->latest()->get();
         return view('todolist.show', compact('data_category', 'data_todolist'));
+        // dd($query->toSql(), $query->getBindings());
+        // dd($request->all());
+
     }
 
     /**

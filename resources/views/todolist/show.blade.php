@@ -2,22 +2,56 @@
 
 @section('content')
     <div class="container mb-4">
-        <div class="d-flex flex-row mb-4">
-            <a href="todolist/create" class="btn btn-success mx-1">Add [+]</a>
-            <form action="/todolist" class="ms-2">
-                <select name="category" id="category" class="form-select">
-                    <option value="" selected>All Category</option>
-                    @foreach ( $data_category as $category )
-                        <option value="{{$category->id_category}}">{{$category->category_name}}</option>
+        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
+            <div class="mb-2">
+                <a href="/todolist/create" class="btn btn-primary">
+                    + Add Todo
+                </a>
+            </div>
+            <form method="GET" action="/todolist"
+                class="d-flex gap-2 flex-nowrap">
+
+                <!-- Search -->
+                <input type="text" name="search" class="form-control"
+                placeholder="Search..." value="{{ request('search') }}"
+                style="width:180px">
+
+                <!-- Status -->
+                <select name="status"
+                        class="form-select"
+                        onchange="this.form.submit()"
+                        style="width: 100px">
+
+                    <option value="">Status</option>
+
+                    <option value="pending"
+                        {{ request('status')=='pending'?'selected':'' }}>
+                        Pending
+                    </option>
+
+                    <option value="done"
+                        {{ request('status')=='done'?'selected':'' }}>
+                        Done
+                    </option>
+                </select>
+
+
+                <!-- Category -->
+                <select name="id_category"
+                        class="form-select"
+                        onchange="this.form.submit()"
+                        style="width: 120px">
+
+                    <option value="">Category</option>
+
+                    @foreach($data_category as $category)
+                        <option value="{{ $category->id_category }}"
+                            {{ request('category')==$category->id_category ? 'selected' : '' }}>
+                            {{ $category->category_name }}
+                        </option>
                     @endforeach
                 </select>
-            </form>
-            <form action="/todolist" class="mx-2">
-                <select name="status" id="status" class="form-select">
-                    <option value="" selected>All Status</option>
-                    <option value="pending">Pending</option>
-                    <option value="done">Done</option>
-                </select>
+
             </form>
         </div>
         @if (@session('message'))

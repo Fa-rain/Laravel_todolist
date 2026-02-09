@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthManager;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ToDoListController;
 
@@ -36,3 +37,11 @@ Route::middleware('auth')->group(function (){
     Route::get('/todolist/{id_todolist}/edit', [ToDoListController::class, 'edit']);
     Route::put('/todolist/{id_todolist}', [ToDoListController::class, 'update']);
 });
+
+// Profil
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+});
+

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-custom sticky-top p-2 mb-4">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">Todolist</a>
+        <a class="navbar-brand" href="/todolist">Todolist</a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
@@ -15,7 +15,7 @@
                     <a class="nav-link" href="/login">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/profil">Profil</a>
+                    <a class="nav-link" href="{{ route('profile.show') }}">Profile</a>
                 </li>
             </ul>
         </div>

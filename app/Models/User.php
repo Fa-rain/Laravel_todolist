@@ -26,5 +26,10 @@ class User extends Authenticatable
         return $this->hasMany(ToDoList::class, 'id_user', 'id_user');
     }
 
+    public function profile()
+    {
+        return $this->hasOne(User::class, 'id_user', 'id_user');
+    }
+
 }
 
