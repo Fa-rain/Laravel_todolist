@@ -19,5 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(CategorySeeder::class);
         $this->call(ToDoListSeeder::class);
+        $this->call(LabelSeeder::class);
+        $this->call(LabelTodolistSeeder::class);
     }
 }

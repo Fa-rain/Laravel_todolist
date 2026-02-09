@@ -21,6 +21,11 @@ class ToDoList extends Model
         return $this->belongsTo(User::class, 'id_user', 'id_user');
     }
 
+    public function labels()
+    {
+        return $this->belongsToMany(Label::class, 'label_todolist');
+    }
+
 }
 
 

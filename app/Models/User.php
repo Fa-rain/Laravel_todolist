@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\LabelController;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\ToDoList;
 
@@ -29,6 +30,11 @@ class User extends Authenticatable
     public function profile()
     {
         return $this->hasOne(User::class, 'id_user', 'id_user');
+    }
+
+    public function labels()
+    {
+        return $this->hasMany(Label::class, 'id_user');
     }
 
 }

@@ -10,7 +10,9 @@ class ProfileController extends Controller
     public function show()
     {
         $data_user = Auth::user();
-        return view('profile.show', compact('data_user'));
+        $data_label = $data_user->labels()->get();
+
+        return view('profile.show', compact('data_user', 'data_label'));
     }
 
     public function edit()
@@ -31,6 +33,7 @@ class ProfileController extends Controller
         $data_user->update([
             'username' => $request->username,
             'email' => $request->email,
+            ''
         ]);
 
         $data_user->save();
