@@ -5,11 +5,6 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ToDoListController;
 
-Route::get('/', function ()
-{
-    return view('todolist');
-})->name('home');
-
 // Auth
 Route::get('/login', [AuthManager::class, 'login'])
     ->name('login');
@@ -30,6 +25,7 @@ Route::post('/register', [AuthManager::class, 'registerPost'])
 
 // To Do List
 Route::middleware('auth')->group(function (){
+    Route::get('/', [ToDoListController::class, 'index']);
     Route::get('/todolist', [ToDoListController::class, 'index'])->name('todolist'); // show data
     Route::get('/todolist/create', [ToDoListController::class, 'create']); // show add form
     Route::post('/todolist', [ToDoListController::class, 'store']);
